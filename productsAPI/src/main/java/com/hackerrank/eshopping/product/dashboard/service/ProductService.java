@@ -1,12 +1,8 @@
 package com.hackerrank.eshopping.product.dashboard.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.google.common.base.Functions;
-import com.google.common.collect.Ordering;
 import com.hackerrank.eshopping.product.dashboard.model.ComplexProduct;
 import com.hackerrank.eshopping.product.dashboard.repository.Repository;
 import com.hackerrank.eshopping.product.dashboard.model.Product;
-import org.hibernate.sql.ordering.antlr.OrderingSpecification;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -16,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 public class ProductService {
@@ -90,7 +85,7 @@ public class ProductService {
         ArrayList<Product> ordered = new ArrayList<>();
         prods.forEach((ComplexProduct c) -> ordered.add(c.getProduct()));
 
-        return new ResponseEntity(ordered,HttpStatus.OK);
+        return new ResponseEntity(ordered, HttpStatus.OK);
     }
 
     public Iterable<Product> getAllProducts() { return productsRepo.findAll();}

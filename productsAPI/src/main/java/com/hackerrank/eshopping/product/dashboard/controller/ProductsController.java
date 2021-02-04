@@ -1,7 +1,5 @@
 package com.hackerrank.eshopping.product.dashboard.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.hackerrank.eshopping.product.dashboard.model.Product;
 import com.hackerrank.eshopping.product.dashboard.service.ProductService;
 import org.json.simple.JSONObject;
@@ -9,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/products")
