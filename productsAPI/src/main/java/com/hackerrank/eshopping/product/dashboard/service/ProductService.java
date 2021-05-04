@@ -64,20 +64,30 @@ public class ProductService {
 
   public ResponseEntity getProdsByCatAndAvailability(String category, int availability) {
     category = category.replace("%20", " ");
-    ArrayList<ComplexProduct> prods = new ArrayList<>();
+    ArrayList<ComplexProduct> complexProducts = new ArrayList<>();
     productsRepo.findProductsByCategoryAndAvailability(category, availability != 0)
-        .forEach((Product p) ->
-            prods.add(new ComplexProduct(p,
-                Math.round(
-                    ((p.getRetail_price() - p.getDiscounted_price()) / p.getRetail_price()) * 100)
-                    * 100.0 / 100.0)));
-    Collections.sort(prods);
+        .forEach((Product product) -> complexProducts.add(buildComplexProduct(product)));
+    Collections.sort(complexProducts);
     ArrayList<Product> ordered = new ArrayList<>();
-    prods.forEach((ComplexProduct c) -> ordered.add(c.getProduct()));
+    complexProducts.forEach((ComplexProduct c) -> ordered.add(c.getProduct()));
     return new ResponseEntity(ordered, HttpStatus.OK);
   }
 
   public Iterable<Product> getAllProducts() {
     return productsRepo.findAll();
+  }
+
+  private ComplexProduct buildComplexProduct(Product product) {
+    return ComplexProduct.builder()
+        .product(product)
+        .discount(calculateDiscount(product))
+        .build();
+  }
+
+  private Double calculateDiscount(Product product) {
+    return (Math.round(
+        ((product.getRetail_price() - product.getDiscounted_price()) / product.getRetail_price())
+            * 100)
+        * 100.0 / 100.0);
   }
 }
