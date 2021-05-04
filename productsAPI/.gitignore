@@ -1,6 +1,11 @@
 # Default ignored files
+target/
 /shelf/
+# IntelliJ IDEA #
 .idea
+*.iws
+*.iml
+*.ipr
 # CodeStream ignored files
 /codestream.xml
 # Datasource local storage ignored files
